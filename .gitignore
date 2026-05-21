@@ -1,0 +1,31 @@
+# Credenciales y variables de entorno (Datos Sensibles)
+.env
+firebase_credentials.json
+
+# Entorno virtual y caché de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+env/
+.venv/
+
+# Node modules (Backend y Frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Compilados de Node/React/NestJS
+dist/
+build/
+.next/
+
+# Archivos de entorno y SO
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
