@@ -42,7 +42,7 @@ const AppContent = () => {
           <Route 
             path="/history" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="admin">
                 <History />
               </ProtectedRoute>
             } 
@@ -50,7 +50,7 @@ const AppContent = () => {
           <Route 
             path="/stats" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="admin">
                 <Stats />
               </ProtectedRoute>
             } 
@@ -58,7 +58,7 @@ const AppContent = () => {
           <Route 
             path="/drivers-admin" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="admin">
                 <DriversAdmin />
               </ProtectedRoute>
             } 
@@ -66,7 +66,7 @@ const AppContent = () => {
           <Route 
             path="/settings" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="admin">
                 <Settings />
               </ProtectedRoute>
             } 

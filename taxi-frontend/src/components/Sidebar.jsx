@@ -39,24 +39,27 @@ const Sidebar = () => {
           <LayoutDashboard size={18} />
           <span>Dashboard</span>
         </NavLink>
-        <NavLink to="/history" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
-          <History size={18} />
-          <span>Historial</span>
-        </NavLink>
-        <NavLink to="/stats" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
-          <BarChart3 size={18} />
-          <span>Estadísticas</span>
-        </NavLink>
+        
         {user?.role === 'admin' && (
-          <NavLink to="/drivers-admin" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
-            <UserCheck size={18} />
-            <span>Solicitudes</span>
-          </NavLink>
+          <>
+            <NavLink to="/history" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
+              <History size={18} />
+              <span>Historial</span>
+            </NavLink>
+            <NavLink to="/stats" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
+              <BarChart3 size={18} />
+              <span>Estadísticas</span>
+            </NavLink>
+            <NavLink to="/drivers-admin" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
+              <UserCheck size={18} />
+              <span>Solicitudes</span>
+            </NavLink>
+            <NavLink to="/settings" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
+              <Settings size={18} />
+              <span>Configuración</span>
+            </NavLink>
+          </>
         )}
-        <NavLink to="/settings" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
-          <Settings size={18} />
-          <span>Configuración</span>
-        </NavLink>
       </nav>
 
       <div className="sidebar-footer">
