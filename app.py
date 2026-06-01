@@ -115,5 +115,13 @@ def ver_historial():
 def ping():
     return jsonify({"status": "servidor activo"}), 200
 
+import threading
+from telegram_bot import start_bot
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    # Iniciar el bot de Telegram en un hilo separado
+    bot_thread = threading.Thread(target=start_bot, daemon=True)
+    bot_thread.start()
+    
+    # Iniciar el servidor Flask
+    app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=False)
