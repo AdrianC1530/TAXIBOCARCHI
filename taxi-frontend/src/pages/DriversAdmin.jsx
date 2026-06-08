@@ -118,6 +118,9 @@ const DriversAdmin = () => {
               </div>
 
               <div style={{ background: 'rgba(255,255,255,0.03)', padding: 10, borderRadius: 8 }}>
+                <div style={{ fontSize: 11, color: 'var(--muted)', textTransform: 'uppercase', marginBottom: 6 }}>Información del Conductor</div>
+                <div style={{ fontSize: 14, marginBottom: 4 }}><strong>Cédula:</strong> {driver.cedula || 'N/A'}</div>
+                <div style={{ fontSize: 14, marginBottom: 12 }}><strong>Teléfono:</strong> {driver.telefono || 'N/A'}</div>
                 <div style={{ fontSize: 11, color: 'var(--muted)', textTransform: 'uppercase' }}>Unidad Asignada</div>
                 <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--accent)' }}>{driver.unidad}</div>
               </div>

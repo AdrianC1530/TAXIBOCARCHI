@@ -19,10 +19,12 @@ export class AuthController {
   async registerDriver(
     @Body('nombre') nombre: string,
     @Body('apellido') apellido: string,
+    @Body('cedula') cedula: string,
+    @Body('telefono') telefono: string,
     @Body('unidad') unidad: string,
     @Body('password') pass: string,
   ) {
-    return await this.authService.registerDriver(nombre, apellido, unidad, pass);
+    return await this.authService.registerDriver(nombre, apellido, cedula, telefono, unidad, pass);
   }
 
   @Post('login')

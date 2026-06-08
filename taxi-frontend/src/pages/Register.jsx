@@ -8,6 +8,8 @@ const Register = () => {
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
+    cedula: '',
+    telefono: '',
     unidad: '',
     password: ''
   });
@@ -26,7 +28,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.nombre || !formData.apellido || !formData.unidad || !formData.password) {
+    if (!formData.nombre || !formData.apellido || !formData.cedula || !formData.telefono || !formData.unidad || !formData.password) {
       setError('Por favor, completa todos los campos.');
       return;
     }
@@ -95,6 +97,35 @@ const Register = () => {
                 value={formData.apellido}
                 onChange={handleChange}
                 placeholder="Ej: Pérez"
+                disabled={loading || success}
+                required
+              />
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div className="form-group">
+              <label className="form-label">Cédula</label>
+              <input
+                type="text"
+                name="cedula"
+                className="form-input"
+                value={formData.cedula}
+                onChange={handleChange}
+                placeholder="Ej: 1712345678"
+                disabled={loading || success}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Teléfono</label>
+              <input
+                type="text"
+                name="telefono"
+                className="form-input"
+                value={formData.telefono}
+                onChange={handleChange}
+                placeholder="Ej: 0991234567"
                 disabled={loading || success}
                 required
               />

@@ -24,7 +24,7 @@ export class AppService implements OnModuleInit {
   async getDetecciones() {
     try {
       const snapshot = await this.db.collection('detecciones')
-        .orderBy('fecha_hora', 'asc')
+        .orderBy('fecha_hora', 'desc')
         .limit(100)
         .get();
         
@@ -35,7 +35,8 @@ export class AppService implements OnModuleInit {
           ...doc.data()
         });
       });
-      return detecciones;
+      // Invertir para que los más recientes estén al final (orden cronológico)
+      return detecciones.reverse();
     } catch (error) {
       console.error("Error obteniendo detecciones:", error);
       return [];

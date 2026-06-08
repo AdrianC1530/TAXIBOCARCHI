@@ -67,7 +67,7 @@ export class AuthService implements OnModuleInit {
     return { id: docRef.id, username, name };
   }
 
-  async registerDriver(nombre: string, apellido: string, unidad: string, pass: string) {
+  async registerDriver(nombre: string, apellido: string, cedula: string, telefono: string, unidad: string, pass: string) {
     const usersRef = this.db.collection('usuarios');
     // Usaremos el número de unidad como username
     const username = unidad;
@@ -82,6 +82,8 @@ export class AuthService implements OnModuleInit {
       username,
       password: hashedPassword,
       name: `${nombre} ${apellido}`,
+      cedula,
+      telefono,
       unidad,
       role: 'driver',
       status: 'pending',
@@ -106,6 +108,8 @@ export class AuthService implements OnModuleInit {
         id: doc.id,
         username: data.username,
         name: data.name,
+        cedula: data.cedula,
+        telefono: data.telefono,
         unidad: data.unidad,
         createdAt: data.createdAt
       });

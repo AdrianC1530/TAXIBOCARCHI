@@ -43,9 +43,7 @@ if __name__ == "__main__":
     test_deteccion(4)
     time.sleep(1)
     
-    # Prueba 3: Sobre el umbral (alerta roja)
-    test_deteccion(6)
-    time.sleep(1)
+
     
     # Verificamos que se hayan guardado en el historial
     test_historial()

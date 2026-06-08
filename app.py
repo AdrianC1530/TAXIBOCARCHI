@@ -30,6 +30,9 @@ UMBRAL_PREVENTIVO = 3 # A las 3 personas avisamos que se acerquen
 registros = []
 ultima_alerta = datetime.min
 TIEMPO_ESPERA_SEGUNDOS = 60 # Esperar 1 minuto antes de enviar otra alerta igual
+ultima_cantidad = -1
+ultima_vez_guardado = datetime.min
+TIEMPO_GUARDADO_NORMAL = 15 # Guardar en Firebase máximo cada 15 seg si no hay cambios
 
 @app.route("/deteccion", methods=["POST"])
 def recibir_deteccion():
@@ -78,28 +81,44 @@ def recibir_deteccion():
             anti_spam_activo = True
             print(f"Alerta omitida temporalmente (Sistema anti-spam activo)")
             
-    # Guardar registro en memoria local
-    registros.append({
-        "timestamp": timestamp,
-        "personas": cantidad,
-        "alerta_enviada": alerta_enviada,
-        "estado_alerta": estado_alerta
-    })
+    global ultima_cantidad, ultima_vez_guardado
     
-    # Guardar registro en Firebase Firestore
-    if db is not None:
-        try:
-            db.collection("detecciones").add({
-                "timestamp": timestamp,
-                "personas": cantidad,
-                "alerta_enviada": alerta_enviada,
-                "estado_alerta": estado_alerta,
-                "anti_spam_activo": anti_spam_activo,
-                "fecha_hora": firestore.SERVER_TIMESTAMP
-            })
-            print("Registro guardado exitosamente en Firebase")
-        except Exception as e:
-            print(f"Error al guardar en Firebase: {e}")
+    guardar_registro = False
+    
+    # Guardamos si hay un cambio en la cantidad, si se envió alerta o si pasó el tiempo normal
+    if cantidad != ultima_cantidad:
+        guardar_registro = True
+    elif alerta_enviada:
+        guardar_registro = True
+    elif (ahora - ultima_vez_guardado).total_seconds() >= TIEMPO_GUARDADO_NORMAL:
+        guardar_registro = True
+
+    if guardar_registro:
+        ultima_cantidad = cantidad
+        ultima_vez_guardado = ahora
+        
+        # Guardar registro en memoria local
+        registros.append({
+            "timestamp": timestamp,
+            "personas": cantidad,
+            "alerta_enviada": alerta_enviada,
+            "estado_alerta": estado_alerta
+        })
+        
+        # Guardar registro en Firebase Firestore
+        if db is not None:
+            try:
+                db.collection("detecciones").add({
+                    "timestamp": timestamp,
+                    "personas": cantidad,
+                    "alerta_enviada": alerta_enviada,
+                    "estado_alerta": estado_alerta,
+                    "anti_spam_activo": anti_spam_activo,
+                    "fecha_hora": firestore.SERVER_TIMESTAMP
+                })
+                print(f"Registro guardado exitosamente en Firebase (Pasajeros: {cantidad})")
+            except Exception as e:
+                print(f"Error al guardar en Firebase: {e}")
     
     return jsonify({
         "status": "ok",
