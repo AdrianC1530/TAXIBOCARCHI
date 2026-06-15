@@ -99,6 +99,18 @@ const History = () => {
         return;
       }
 
+      // Metadatos del Reporte
+      const empresa = "COMPAÑÍA DE TRANSPORTE EN TAXIS TAXIBOCARCHI CIA. S.A.";
+      const reporte = "Reporte Histórico de Detecciones";
+      const fechaEmision = new Date().toLocaleString();
+
+      const metadataRows = [
+        [`"${empresa}"`],
+        [`"${reporte}"`],
+        [`"Fecha de Emisión: ${fechaEmision}"`],
+        [] // Fila vacía de separación
+      ];
+
       // Estructurar el CSV
       const headers = ['ID', 'Timestamp', 'Personas', 'Estado Alerta', 'Alerta Enviada (Telegram)', 'Anti-Spam Activo'];
       const rows = exportData.map(d => [
@@ -110,8 +122,11 @@ const History = () => {
         d.anti_spam_activo ? 'SI' : 'NO'
       ]);
 
-      const csvContent = "data:text/csv;charset=utf-8," 
-        + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const allRows = [...metadataRows, headers, ...rows];
+
+      // Añadimos \uFEFF para que Excel reconozca correctamente la codificación UTF-8 (Tildes y Ñ)
+      const csvContent = "data:text/csv;charset=utf-8,\uFEFF" 
+        + allRows.map(e => e.join(',')).join('\n');
 
       const encodedUri = encodeURI(csvContent);
       const link = document.createElement("a");
