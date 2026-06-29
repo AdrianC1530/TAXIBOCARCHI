@@ -34,7 +34,7 @@
 
 #define WIFI_SSID "NETLIFE-ibaamzambranor1"
 #define WIFI_PASSWORD "1308935947"
-#define SERVIDOR_URL "http://192.168.1.3:5000/deteccion"
+#define SERVIDOR_URL "http://192.168.1.8:5000/deteccion"
 #define UMBRAL_PERSONAS 3
 #define INTERVALO_ENVIO 10000
 
